@@ -1,0 +1,15 @@
+Return-Path: <postfixtest@localhost>
+X-Original-To: longdou@localhost
+Delivered-To: longdou@localhost
+Received: from localhost (localhost [127.0.0.1])
+	by ubuntu.ubuntu-domain (Postfix) with ESMTP id 249D126ABE
+	for <longdou@localhost>; Sun,  7 Apr 2013 01:38:30 +0800 (CST)
+Subject: Test mail from postfixtest
+Message-Id: <20130406173846.249D126ABE@ubuntu.ubuntu-domain>
+Date: Sun,  7 Apr 2013 01:38:30 +0800 (CST)
+From: postfixtest@localhost
+
+Hi,
+My name is postfixtest
+
+

@@ -1,0 +1,67 @@
+Instr::__set_state(array(
+   'instr_name' => 'sqimap_toggle_flag',
+   'param_list' => 
+  array (
+    0 => 
+    array (
+      0 => '24',
+    ),
+    1 => '\\Deleted',
+    2 => false,
+    3 => true,
+  ),
+))
+Instr::__set_state(array(
+   'instr_name' => 'sqimap_toggle_flag',
+   'param_list' => 
+  array (
+    0 => 
+    array (
+      0 => '23',
+    ),
+    1 => '\\Deleted',
+    2 => false,
+    3 => true,
+  ),
+))
+Instr::__set_state(array(
+   'instr_name' => 'sqimap_toggle_flag',
+   'param_list' => 
+  array (
+    0 => 
+    array (
+      0 => '23',
+    ),
+    1 => '\\Deleted',
+    2 => false,
+    3 => true,
+  ),
+))
+
+Instr::__set_state(array(
+   'instr_name' => 'sqimap_toggle_flag',
+   'param_list' => 
+  array (
+    0 => 
+    array (
+      0 => '23',
+    ),
+    1 => '\\Deleted',
+    2 => false,
+    3 => true,
+  ),
+))
+
+Instr::__set_state(array(
+   'instr_name' => 'sqimap_msgs_list_delete',
+   'param_list' => 
+  array (
+    0 => 'INBOX',
+    1 => 
+    array (
+      0 => '14',
+      1 => '11',
+    ),
+  ),
+))
+

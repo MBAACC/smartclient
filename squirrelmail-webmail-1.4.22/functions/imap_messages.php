@@ -1170,12 +1170,13 @@ function sqimap_messages_remove_flag($imap_stream, $start, $end, $flag, $handle_
 }
 
 
-function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
+function sqimap_toggle_flag($imapConnection, $id, $flag, $set, $handle_errors) {
     global $uid_support;
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
     $read = sqimap_run_command ($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);
 }
+
 
 
 /**

@@ -160,8 +160,10 @@ if (!sqgetGlobalVar('smtoken',$submitted_token, SQ_POST)) {
 // security check
 sm_validate_security_token($submitted_token, 3600, TRUE);
 
+/*
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);
+*/
 
 $location = set_url_var($location,'composenew',0,false);
 $location = set_url_var($location,'composesession',0,false);
@@ -195,6 +197,7 @@ if (isset($msg) && is_array($msg)) {
     }
 }
 
+/*
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
 if(isset($expungeButton)) {
     $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
@@ -205,11 +208,15 @@ if(isset($expungeButton)) {
             $location = set_url_var($location,'startMessage',1,false);
         }
     }
-} elseif(isset($undeleteButton)) {
+} */
+
+
+if(isset($undeleteButton)) {
     // undelete messages if user isn't using move_to_trash or auto_expunge
     // Removes \Deleted flag from selected messages
     if (count($id)) {
-        sqimap_toggle_flag($imapConnection, $id, '\\Deleted',false,true);
+		// offline
+        sqimap_toggle_flag_off($id, '\\Deleted',false,true);
     } else {
         $exception = true;
     }
@@ -218,13 +225,17 @@ if(isset($expungeButton)) {
         $cnt = count($id);
         if (!isset($attache)) {
             if (isset($markRead)) {
-                sqimap_toggle_flag($imapConnection, $id, '\\Seen',true,true);
+				// offline
+                sqimap_toggle_flag_off($id, '\\Seen',true,true);
             } else if (isset($markUnread)) {
-                sqimap_toggle_flag($imapConnection, $id, '\\Seen',false,true);
+				// offline
+                sqimap_toggle_flag_off($id, '\\Seen',false,true);
             } else  {
-                sqimap_msgs_list_delete($imapConnection, $mailbox, $id);
+				// offline
+                sqimap_msgs_list_delete_off($mailbox, $id);
                 if ($auto_expunge) {
-                    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+					// offline
+                    $cnt = sqimap_mailbox_expunge_off($mailbox, true);
                 }
                 if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
                     if ($startMessage > $show_num) {
