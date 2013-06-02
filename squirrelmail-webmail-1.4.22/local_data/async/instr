@@ -1,67 +1,12 @@
-Instr::__set_state(array(
-   'instr_name' => 'sqimap_toggle_flag',
-   'param_list' => 
-  array (
-    0 => 
-    array (
-      0 => '24',
-    ),
-    1 => '\\Deleted',
-    2 => false,
-    3 => true,
-  ),
-))
-Instr::__set_state(array(
-   'instr_name' => 'sqimap_toggle_flag',
-   'param_list' => 
-  array (
-    0 => 
-    array (
-      0 => '23',
-    ),
-    1 => '\\Deleted',
-    2 => false,
-    3 => true,
-  ),
-))
-Instr::__set_state(array(
-   'instr_name' => 'sqimap_toggle_flag',
-   'param_list' => 
-  array (
-    0 => 
-    array (
-      0 => '23',
-    ),
-    1 => '\\Deleted',
-    2 => false,
-    3 => true,
-  ),
-))
+O:5:"Instr":2:{s:10:"instr_name";s:23:"sqimap_msgs_list_delete";s:10:"param_list";a:2:{i:0;s:5:"INBOX";i:1;a:1:{i:0;s:2:"27";}}}
 
-Instr::__set_state(array(
-   'instr_name' => 'sqimap_toggle_flag',
-   'param_list' => 
-  array (
-    0 => 
-    array (
-      0 => '23',
-    ),
-    1 => '\\Deleted',
-    2 => false,
-    3 => true,
-  ),
-))
+O:5:"Instr":2:{s:10:"instr_name";s:22:"sqimap_mailbox_expunge";s:10:"param_list";a:3:{i:0;s:5:"INBOX";i:1;b:1;i:2;s:0:"";}}
 
-Instr::__set_state(array(
-   'instr_name' => 'sqimap_msgs_list_delete',
-   'param_list' => 
-  array (
-    0 => 'INBOX',
-    1 => 
-    array (
-      0 => '14',
-      1 => '11',
-    ),
-  ),
-))
+O:5:"Instr":2:{s:10:"instr_name";s:23:"sqimap_msgs_list_delete";s:10:"param_list";a:2:{i:0;s:5:"INBOX";i:1;a:1:{i:0;s:2:"27";}}}
+
+O:5:"Instr":2:{s:10:"instr_name";s:22:"sqimap_mailbox_expunge";s:10:"param_list";a:3:{i:0;s:5:"INBOX";i:1;b:1;i:2;s:0:"";}}
+
+O:5:"Instr":2:{s:10:"instr_name";s:23:"sqimap_msgs_list_delete";s:10:"param_list";a:2:{i:0;s:5:"INBOX";i:1;a:1:{i:0;s:2:"27";}}}
+
+O:5:"Instr":2:{s:10:"instr_name";s:22:"sqimap_mailbox_expunge";s:10:"param_list";a:3:{i:0;s:5:"INBOX";i:1;b:1;i:2;s:0:"";}}
 

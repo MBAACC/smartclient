@@ -216,7 +216,7 @@ if(isset($undeleteButton)) {
     // Removes \Deleted flag from selected messages
     if (count($id)) {
 		// offline
-        sqimap_toggle_flag_off($id, '\\Deleted',false,true);
+        sqimap_toggle_flag_off($id, '\\Deleted',false,true, $mailbox);
     } else {
         $exception = true;
     }
@@ -226,10 +226,10 @@ if(isset($undeleteButton)) {
         if (!isset($attache)) {
             if (isset($markRead)) {
 				// offline
-                sqimap_toggle_flag_off($id, '\\Seen',true,true);
+                sqimap_toggle_flag_off($id, '\\Seen',true,true, $mailbox);
             } else if (isset($markUnread)) {
 				// offline
-                sqimap_toggle_flag_off($id, '\\Seen',false,true);
+                sqimap_toggle_flag_off($id, '\\Seen',false,true, $mailbox);
             } else  {
 				// offline
                 sqimap_msgs_list_delete_off($mailbox, $id);

@@ -36,7 +36,7 @@ class Instr {
 		$fp = fopen("$instr_file", "a+");
 		
 		if(flock($fp, LOCK_EX)){
-			fwrite($fp, var_export($this, true)."\n\n");	
+			fwrite($fp, serialize($this)."\n\n");	
 			fflush($fp);
 			flock($fp, LOCK_UN);
 			$flag = true;

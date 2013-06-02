@@ -207,7 +207,6 @@ PAGE_NAME	src/left_main.php	/^define('PAGE_NAME', 'left_main');$/;"	d
 PAGE_NAME	src/login.php	/^define('PAGE_NAME', 'login');$/;"	d
 PAGE_NAME	src/mailto.php	/^define('PAGE_NAME', 'mailto');$/;"	d
 PAGE_NAME	src/move_messages.php	/^define('PAGE_NAME', 'move_messages');$/;"	d
-PAGE_NAME	src/move_messages_.php	/^define('PAGE_NAME', 'move_messages');$/;"	d
 PAGE_NAME	src/move_messages_backup.php	/^define('PAGE_NAME', 'move_messages');$/;"	d
 PAGE_NAME	src/options.php	/^define('PAGE_NAME', 'options');$/;"	d
 PAGE_NAME	src/options_highlight.php	/^define('PAGE_NAME', 'options_highlight');$/;"	d
@@ -221,6 +220,7 @@ PAGE_NAME	src/redirect.php	/^define('PAGE_NAME', 'redirect');$/;"	d
 PAGE_NAME	src/right_main.php	/^define('PAGE_NAME', 'right_main');$/;"	d
 PAGE_NAME	src/search.php	/^define('PAGE_NAME', 'search');$/;"	d
 PAGE_NAME	src/signout.php	/^define('PAGE_NAME', 'signout');$/;"	d
+PAGE_NAME	src/sync.php	/^define('PAGE_NAME', 'sync');$/;"	d
 PAGE_NAME	src/vcard.php	/^define('PAGE_NAME', 'vcard');$/;"	d
 PAGE_NAME	src/view_header.php	/^define('PAGE_NAME', 'view_header');$/;"	d
 PAGE_NAME	src/webmail.php	/^define('PAGE_NAME', 'webmail');$/;"	d
@@ -396,7 +396,6 @@ SM_PATH	src/left_main.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/login.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/mailto.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/move_messages.php	/^define('SM_PATH','..\/');$/;"	d
-SM_PATH	src/move_messages_.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/move_messages_backup.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/options.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/options_highlight.php	/^define('SM_PATH','..\/');$/;"	d
@@ -410,6 +409,7 @@ SM_PATH	src/redirect.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/right_main.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/search.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/signout.php	/^define('SM_PATH','..\/');$/;"	d
+SM_PATH	src/sync.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/view_header.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/view_text.php	/^define('SM_PATH','..\/');$/;"	d
 SM_PATH	src/webmail.php	/^define('SM_PATH','..\/');$/;"	d
@@ -719,7 +719,6 @@ att_ar	src/printer_friendly_bottom.php	/^    $att_ar = $message->getAttachments(
 att_local_name	class/mime/Message.class.php	/^    var $att_local_name = '';$/;"	p
 att_local_name	class/mime/Message.class.php	/^    var $att_local_name = '';$/;"	v
 attachSelectedMessages	src/move_messages.php	/^function attachSelectedMessages($msg, $imapConnection) {$/;"	f
-attachSelectedMessages	src/move_messages_.php	/^function attachSelectedMessages($msg, $imapConnection) {$/;"	f
 attachSelectedMessages	src/move_messages_backup.php	/^function attachSelectedMessages($msg, $imapConnection) {$/;"	f
 attach_array	src/compose.php	/^        $attach_array = $attachments;$/;"	v
 attach_array	src/compose.php	/^        $attach_array = $composeMessage->entities;$/;"	v
@@ -1004,7 +1003,6 @@ body	src/compose.php	/^        $body = implode('', $body_a) . "\\r\\n";$/;"	v
 body	src/compose.php	/^        $body = str_replace("\\r", "\\n", $body);$/;"	v
 body	src/compose.php	/^        $body = str_replace("\\r\\n", "\\n", $body);$/;"	v
 body	src/move_messages.php	/^                $body = implode('', $body_a);$/;"	v
-body	src/move_messages_.php	/^                $body = implode('', $body_a);$/;"	v
 body	src/move_messages_backup.php	/^                $body = implode('', $body_a);$/;"	v
 body	src/printer_friendly_bottom.php	/^  $body = $hookResults[1];$/;"	v
 body	src/printer_friendly_bottom.php	/^  $body = _("Message not printable");$/;"	v
@@ -1021,7 +1019,6 @@ bodyTop	src/compose.php	/^    $bodyTop =  str_pad(' '._("Original Message").' ',
 body_a	plugins/spamcop/spamcop.php	/^        $body_a = sqimap_run_command($imapConnection, $/;"	v
 body_a	src/compose.php	/^        $body_a = sqimap_run_command($imapConnection,$/;"	v
 body_a	src/move_messages.php	/^            $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage, $uid_support);$/;"	v
-body_a	src/move_messages_.php	/^            $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage, $uid_support);$/;"	v
 body_a	src/move_messages_backup.php	/^            $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage, $uid_support);$/;"	v
 body_ary	functions/mime.php	/^    $body_ary = explode("\\n", $body);$/;"	v
 body_ary	src/compose.php	/^                $body_ary = explode("\\n", $body);$/;"	v
@@ -1414,21 +1411,17 @@ cnt	functions/identity.php	/^    $cnt = count($identities);$/;"	v
 cnt	functions/imap_general.php	/^        $cnt = count($query['literal_args']);$/;"	v
 cnt	functions/imap_mailbox.php	/^        $cnt = count($boxesall);$/;"	v
 cnt	functions/imap_mailbox.php	/^    $cnt = 0;$/;"	v
+cnt	functions/imap_mailbox_off.php	/^    $cnt = 0;$/;"	v
 cnt	functions/imap_search.php	/^    $cnt = count($messagelist);$/;"	v
 cnt	functions/strings.php	/^    $cnt = count($lines);$/;"	v
 cnt	plugins/message_details/message_details_bottom.php	/^        $cnt=count($boundaries)-1;$/;"	v
 cnt	src/compose.php	/^                $cnt = count($body_ary) ;$/;"	v
 cnt	src/compose.php	/^                $cnt = count($rewrap_body);$/;"	v
-cnt	src/move_messages.php	/^                    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
+cnt	src/move_messages.php	/^                    $cnt = sqimap_mailbox_expunge_off($mailbox, true);$/;"	v
 cnt	src/move_messages.php	/^                $cnt = 0;$/;"	v
 cnt	src/move_messages.php	/^                $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
 cnt	src/move_messages.php	/^        $cnt = count($id);$/;"	v
 cnt	src/move_messages.php	/^    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
-cnt	src/move_messages_.php	/^                    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
-cnt	src/move_messages_.php	/^                $cnt = 0;$/;"	v
-cnt	src/move_messages_.php	/^                $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
-cnt	src/move_messages_.php	/^        $cnt = count($id$/;"	v
-cnt	src/move_messages_.php	/^    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
 cnt	src/move_messages_backup.php	/^                    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
 cnt	src/move_messages_backup.php	/^                $cnt = 0;$/;"	v
 cnt	src/move_messages_backup.php	/^                $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);$/;"	v
@@ -1437,6 +1430,8 @@ cnt	src/move_messages_backup.php	/^    $cnt = sqimap_mailbox_expunge($imapConnec
 cnt	src/options_identities.php	/^$cnt = count($identities);$/;"	v
 cnt	src/read_body.php	/^        $cnt = count($recipients);$/;"	v
 cnt	src/read_body.php	/^$cnt = count($ent_ar);$/;"	v
+cnt	src/sync.php	/^		$cnt = count($unexe_instrs);$/;"	v
+cnt	src/sync.php	/^$cnt = count($instrs);$/;"	v
 cntdoc	src/help.php	/^    $cntdoc = count($doc);$/;"	v
 cnum	src/view_header.php	/^    $cnum = 0;$/;"	v
 col	functions/mailbox_display.php	/^    $col = 0;$/;"	v
@@ -1574,7 +1569,6 @@ composeMessage	src/compose.php	/^        $composeMessage = $hookReturn[1];$/;"	v
 composeMessage	src/compose.php	/^    $composeMessage = $compose_messages[$session];$/;"	v
 composeMessage	src/compose.php	/^    $composeMessage = new Message();$/;"	v
 composeMessage	src/move_messages.php	/^    $composeMessage = new Message();$/;"	v
-composeMessage	src/move_messages_.php	/^    $composeMessage = new Message();$/;"	v
 composeMessage	src/move_messages_backup.php	/^    $composeMessage = new Message();$/;"	v
 composeMessage	src/read_body.php	/^    $composeMessage = new Message();$/;"	v
 compose_Header	functions/page_header.php	/^function compose_Header($color, $mailbox) {$/;"	f
@@ -1582,7 +1576,6 @@ compose_height	functions/page_header.php	/^                    $compose_height =
 compose_height	include/load_prefs.php	/^$compose_height = getPref($data_dir, $username, 'compose_height', 550);$/;"	v
 compose_messages	plugins/spamcop/spamcop.php	/^          $compose_messages = array();$/;"	v
 compose_messages	src/move_messages.php	/^        $compose_messages = array();$/;"	v
-compose_messages	src/move_messages_.php	/^        $compose_messages = array();$/;"	v
 compose_messages	src/move_messages_backup.php	/^        $compose_messages = array();$/;"	v
 compose_new_win	functions/mime.php	/^                $compose_new_win = $temp_comp_in_new;$/;"	v
 compose_new_win	functions/mime.php	/^                $compose_new_win = 0;$/;"	v
@@ -1607,12 +1600,10 @@ composesession	src/compose.php	/^    $composesession = 0;$/;"	v
 composesession	src/move_messages.php	/^            $composesession = attachSelectedMessages($id, $imapConnection);$/;"	v
 composesession	src/move_messages.php	/^        $composesession = 1;$/;"	v
 composesession	src/move_messages.php	/^  $composesession = 0;$/;"	v
-composesession	src/move_messages_.php	/^            $composesession = attachSelectedMessages($id, $imapConnection);$/;"	v
-composesession	src/move_messages_.php	/^        $composesession = 1;$/;"	v
-composesession	src/move_messages_.php	/^  $composesession = 0;$/;"	v
 composesession	src/move_messages_backup.php	/^            $composesession = attachSelectedMessages($id, $imapConnection);$/;"	v
 composesession	src/move_messages_backup.php	/^        $composesession = 1;$/;"	v
 composesession	src/move_messages_backup.php	/^  $composesession = 0;$/;"	v
+composesession	src/sync.php	/^  $composesession = 0;$/;"	v
 computeHashDirs	functions/prefs.php	/^function computeHashDirs($username) {$/;"	f
 compute_folder_children	src/left_main.php	/^function compute_folder_children(&$parbox, $boxcount) {$/;"	f
 concat_hook_function	functions/plugin.php	/^function concat_hook_function($name,$parm=NULL) {$/;"	f
@@ -1725,10 +1716,15 @@ ct	plugins/administrator/options.php	/^                $ct = ' checked="checked"
 ct	plugins/administrator/options.php	/^                $ct = '';$/;"	v
 ctr	plugins/mail_fetch/functions.php	/^    $ctr = 0;$/;"	v
 curBoxLength	src/left_main.php	/^        $curBoxLength = strlen($boxName);$/;"	v
+curLine	src/sync.php	/^			$curLine = fgets($fp);$/;"	v
+curLine	src/sync.php	/^	$curLine = '';$/;"	v
 cur_ent	class/mime/Message.class.php	/^        $cur_ent = $this->entity_id;$/;"	v
 cur_ent_a	class/mime/Message.class.php	/^                $cur_ent_a = explode('.', $msg->entity_id);$/;"	v
 cur_ent_a	class/mime/Message.class.php	/^            $cur_ent_a = array();$/;"	v
 cur_ent_a	class/mime/Message.class.php	/^            $cur_ent_a = explode('.', $this->entity_id);$/;"	v
+cur_instr	src/sync.php	/^			$cur_instr = $unexe_instrs[$i];$/;"	v
+cur_instr	src/sync.php	/^	$cur_instr = $instrs[$i];$/;"	v
+cur_instr_name	src/sync.php	/^	$cur_instr_name = $cur_instr->instr_name;$/;"	v
 cur_l	functions/mime.php	/^                            $cur_l = 0;$/;"	v
 cur_l	functions/mime.php	/^                        $cur_l = 0;$/;"	v
 cur_l	functions/mime.php	/^                        $cur_l = 3;$/;"	v
@@ -1968,6 +1964,7 @@ dir	functions/i18n.php	/^    $dir = bindtextdomain($domain, $dir);$/;"	v
 dir	functions/prefs.php	/^        $dir = substr($dir, 0, strlen($dir) - 1);$/;"	v
 dir_hash_level	config/config.php	/^$dir_hash_level           = 0;$/;"	v
 dir_hash_level	config/config_default.php	/^$dir_hash_level = 0;$/;"	v
+dirp	functions/imap_mailbox_off.php	/^	$dirp = opendir($mailbox_path);$/;"	v
 dirs	functions/strings.php	/^    $dirs = array('|src\/.*|', '|plugins\/.*|', '|functions\/.*|');$/;"	v
 disable_security_tokens	config/config.php	/^$disable_security_tokens = false;$/;"	v
 discard_token_date	functions/strings.php	/^      $discard_token_date = $now - ($max_token_age_days * 86400);$/;"	v
@@ -2045,6 +2042,7 @@ dsn	functions/abook_database.php	/^            $this->dsn   = $param['dsn'];$/;"
 dsn	functions/abook_database.php	/^    var $dsn       = '';$/;"	p
 dsn	functions/abook_database.php	/^    var $dsn       = '';$/;"	v
 dsns	src/configtest.php	/^        $dsns = array();$/;"	v
+dst_file_path	functions/imap_messages_off.php	/^		$dst_file_path = $trash_path . $cur_id;$/;"	v
 dupe	src/search.php	/^                    $dupe = 'yes';$/;"	v
 dupe	src/search.php	/^    $dupe = 'no';$/;"	v
 dwnld_url	src/view_text.php	/^$dwnld_url = '..\/src\/download.php?' . $QUERY_STRING . '&amp;absolute_dl=true';$/;"	v
@@ -2271,8 +2269,6 @@ evntime	plugins/calendar/day.php	/^            $evntime = $i . '00';$/;"	v
 evntime	plugins/calendar/day.php	/^            $evntime = '0' . $i . '00';$/;"	v
 exception	src/move_messages.php	/^        $exception = true;$/;"	v
 exception	src/move_messages.php	/^$exception = false;$/;"	v
-exception	src/move_messages_.php	/^        $exception = true;$/;"	v
-exception	src/move_messages_.php	/^$exception = false;$/;"	v
 exception	src/move_messages_backup.php	/^        $exception = true;$/;"	v
 exception	src/move_messages_backup.php	/^$exception = false;$/;"	v
 excl_ar	src/compose.php	/^        $excl_ar = $header->getAddr_a('reply_to');$/;"	v
@@ -2332,6 +2328,7 @@ file_has_long_lines	class/deliver/Deliver.class.php	/^                $file_has_
 file_has_long_lines	class/deliver/Deliver.class.php	/^                $file_has_long_lines = file_has_long_lines($filename, 990);$/;"	v
 file_has_long_lines	class/deliver/Deliver.class.php	/^                $file_has_long_lines = file_has_long_lines($hashed_attachment_dir$/;"	v
 file_has_long_lines	functions/global.php	/^function file_has_long_lines($filename, $max_length) {$/;"	f
+file_path	src/sync.php	/^$file_path = SM_PATH . "local_data\/async\/instr";$/;"	v
 filehandle	functions/abook_local_file.php	/^                    $this->filehandle = &$fh;$/;"	v
 filehandle	functions/abook_local_file.php	/^                $this->filehandle = &$fh;$/;"	v
 filehandle	functions/abook_local_file.php	/^        $this->filehandle = 0;$/;"	v
@@ -2396,9 +2393,6 @@ filename	src/download.php	/^$filename = decodeHeader($filename,true,false);$/;"	
 filename	src/move_messages.php	/^                    $filename = "untitled-".$message->entity_id;$/;"	v
 filename	src/move_messages.php	/^                    $filename = $subject;$/;"	v
 filename	src/move_messages.php	/^                $filename = decodeHeader($filename, false, false);$/;"	v
-filename	src/move_messages_.php	/^                    $filename = "untitled-".$message->entity_id;$/;"	v
-filename	src/move_messages_.php	/^                    $filename = $subject;$/;"	v
-filename	src/move_messages_.php	/^                $filename = decodeHeader($filename, false, false);$/;"	v
 filename	src/move_messages_backup.php	/^                    $filename = "untitled-".$message->entity_id;$/;"	v
 filename	src/move_messages_backup.php	/^                    $filename = $subject;$/;"	v
 filename	src/move_messages_backup.php	/^                $filename = decodeHeader($filename, false, false);$/;"	v
@@ -2471,6 +2465,7 @@ flag	functions/imap_messages.php	/^                        $flag = strtolower($f
 flag	functions/imap_messages.php	/^                    $flag = strtolower($flag);$/;"	v
 flag	functions/mailbox_display.php	/^        $flag = "<font color=\\"$color[2]\\">";$/;"	v
 flag	functions/mailbox_display.php	/^        $flag = '';$/;"	v
+flag	src/sync.php	/^		$flag = $cur_instr->param_list[1];$/;"	v
 flag_end	functions/mailbox_display.php	/^        $flag_end = '';$/;"	v
 flag_end	functions/mailbox_display.php	/^        $flag_end = '<\/font>';$/;"	v
 flag_seen	functions/imap_messages.php	/^        $flag_seen = $flag_answered = $flag_deleted = $flag_flagged = false;$/;"	v
@@ -2549,6 +2544,8 @@ found_tag	functions/imap_general.php	/^            $found_tag = substr($read,0,$
 found_theme	include/load_prefs.php	/^        $found_theme = true;$/;"	v
 found_theme	include/load_prefs.php	/^$found_theme = false;$/;"	v
 fp	class/Instr.class.php	/^		$fp = fopen("$instr_file", "a+");$/;"	v
+fp	functions/imap_mailbox_off.php	/^		$fp = fopen($src_file_path, "r");$/;"	v
+fp	functions/imap_messages_off.php	/^		$fp = fopen($src_file_path, "r+");$/;"	v
 fp	plugins/calendar/calendar_data.php	/^        $fp = fopen ($filename,'r');$/;"	v
 fp	plugins/calendar/calendar_data.php	/^    $fp = fopen ($filename,'r');$/;"	v
 fp	plugins/calendar/calendar_data.php	/^    $fp = fopen ($filetmp,"w");$/;"	v
@@ -2566,8 +2563,9 @@ fp	plugins/squirrelspell/sqspell_functions.php	/^  $fp=fopen($SQSPELL_WORDS_FILE
 fp	src/compose.php	/^            $fp = fopen ("$hashed_attachment_dir\/$localfilename", 'wb');$/;"	v
 fp	src/compose.php	/^        $fp = fopen($full_localfilename, 'w');$/;"	v
 fp	src/move_messages.php	/^                $fp = fopen( $full_localfilename, 'wb');$/;"	v
-fp	src/move_messages_.php	/^                $fp = fopen( $full_localfilename, 'wb');$/;"	v
 fp	src/move_messages_backup.php	/^                $fp = fopen( $full_localfilename, 'wb');$/;"	v
+fp	src/sync.php	/^	$fp = fopen(SM_PATH . "local_data\/async\/instr", "r+");$/;"	v
+fp	src/sync.php	/^$fp = fopen($file_path, "r+");$/;"	v
 fp1	plugins/filters/filters.php	/^    $fp1 = fopen($data_dir . '\/dnscache', 'w+');$/;"	v
 frame_top	config/config.php	/^$frame_top     = '_top';$/;"	v
 frame_top	config/config_default.php	/^$frame_top = '_top';$/;"	v
@@ -2630,8 +2628,6 @@ full_localfilename	src/compose.php	/^        $full_localfilename = "$hashed_atta
 full_localfilename	src/compose.php	/^    $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
 full_localfilename	src/move_messages.php	/^                    $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
 full_localfilename	src/move_messages.php	/^                $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
-full_localfilename	src/move_messages_.php	/^                    $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
-full_localfilename	src/move_messages_.php	/^                $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
 full_localfilename	src/move_messages_backup.php	/^                    $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
 full_localfilename	src/move_messages_backup.php	/^                $full_localfilename = "$hashed_attachment_dir\/$localfilename";$/;"	v
 full_name	include/options/personal.php	/^    $full_name = getPref($data_dir, $username, 'full_name');$/;"	v
@@ -2776,6 +2772,8 @@ handleAsSent	functions/mailbox_display.php	/^function handleAsSent($mailbox) {$/
 handleAsSent_result	functions/mailbox_display.php	/^    $handleAsSent_result = isSentMailbox($mailbox) || isDraftMailbox($mailbox);$/;"	v
 handleAsSent_result	plugins/sent_subfolders/setup.php	/^            ( $handleAsSent_result$/;"	p
 handleAsSent_result	plugins/sent_subfolders/setup.php	/^        $handleAsSent_result =$/;"	v
+handle_errors	src/sync.php	/^		$handle_errors = $cur_instr->param_list[1];$/;"	v
+handle_errors	src/sync.php	/^		$handle_errors = $cur_instr->param_list[3];$/;"	v
 hard_break_tokens	class/deliver/Deliver.class.php	/^        $hard_break_tokens = array($/;"	v
 hard_wrapped_line	class/deliver/Deliver.class.php	/^            $hard_wrapped_line = substr($header, 0, $hard_wrap);$/;"	v
 has_unsafe_images	functions/mime.php	/^        $has_unsafe_images = true;$/;"	v
@@ -2792,8 +2790,6 @@ hashed_attachment_dir	src/compose.php	/^        $hashed_attachment_dir = getHash
 hashed_attachment_dir	src/compose.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);$/;"	v
 hashed_attachment_dir	src/move_messages.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);$/;"	v
 hashed_attachment_dir	src/move_messages.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir, $composesession);$/;"	v
-hashed_attachment_dir	src/move_messages_.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);$/;"	v
-hashed_attachment_dir	src/move_messages_.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir, $composesession);$/;"	v
 hashed_attachment_dir	src/move_messages_backup.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);$/;"	v
 hashed_attachment_dir	src/move_messages_backup.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir, $composesession);$/;"	v
 hashed_attachment_dir	src/read_body.php	/^    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);$/;"	v
@@ -2959,7 +2955,6 @@ i	plugins/mail_fetch/setup.php	/^                    $i = $j+1;$/;"	v
 i	plugins/mail_fetch/setup.php	/^            $i = 1;$/;"	v
 i	src/addressbook.php	/^                        $i = sizeof($sel);$/;"	v
 i	src/move_messages.php	/^    $i = 0;$/;"	v
-i	src/move_messages_.php	/^    $i = 0;$/;"	v
 i	src/move_messages_backup.php	/^    $i = 0;$/;"	v
 i	src/printer_friendly_bottom.php	/^            $i = strrpos( $this_line, ' ');$/;"	v
 i	src/search.php	/^        $i = 0;$/;"	v
@@ -3064,10 +3059,11 @@ id	plugins/filters/filters.php	/^            $id = filter_search_and_delete($ima
 id	plugins/filters/filters.php	/^    $id = array();$/;"	v
 id	src/move_messages.php	/^            $id = $msg[$i];$/;"	v
 id	src/move_messages.php	/^$id = array();$/;"	v
-id	src/move_messages_.php	/^            $id = $msg[$i];$/;"	v
-id	src/move_messages_.php	/^$id = array();$/;"	v
 id	src/move_messages_backup.php	/^            $id = $msg[$i];$/;"	v
 id	src/move_messages_backup.php	/^$id = array();$/;"	v
+id	src/sync.php	/^		$id = $cur_instr->param_list[0];$/;"	v
+id	src/sync.php	/^		$id = $cur_instr->param_list[1];$/;"	v
+id	src/sync.php	/^		$id = $cur_instr->param_list[2];$/;"	v
 identid	src/options_identities.php	/^            $identid = $iKey;$/;"	v
 identid	src/options_identities.php	/^    $identid = 0;$/;"	v
 identities	functions/identity.php	/^    $identities = array();$/;"	v
@@ -3101,13 +3097,13 @@ imapConnection	src/folders_rename_do.php	/^    $imapConnection = sqimap_login($u
 imapConnection	src/folders_subscribe.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/left_main.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); \/\/ the 10 is to hide the output$/;"	v
 imapConnection	src/move_messages.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
-imapConnection	src/move_messages_.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/move_messages_backup.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/printer_friendly_bottom.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/read_body.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/redirect.php	/^    $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/right_main.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/search.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
+imapConnection	src/sync.php	/^			$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/vcard.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
 imapConnection	src/view_header.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $/;"	v
 imapConnection	src/view_text.php	/^$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);$/;"	v
@@ -3208,6 +3204,7 @@ inside_hook_name	src/options.php	/^            $inside_hook_name = 'options_pers
 instr_file	class/Instr.class.php	/^    	$instr_file = '..\/local_data\/async\/instr';$/;"	v
 instr_name	class/Instr.class.php	/^    var $instr_name = 'ab';$/;"	p
 instr_name	class/Instr.class.php	/^    var $instr_name = 'ab';$/;"	v
+instrs	src/sync.php	/^$instrs = array();$/;"	v
 internal_date	functions/imap_messages.php	/^                    $internal_date = $date;$/;"	v
 internal_date	functions/imap_messages.php	/^                $internal_date = parseString($read,$i);$/;"	v
 internal_date	functions/imap_messages.php	/^                $internal_date = str_replace('  ', ' ', $internal_date);$/;"	v
@@ -3295,7 +3292,6 @@ j	plugins/administrator/options.php	/^                    $j = $s;$/;"	v
 j	plugins/delete_move_next/setup.php	/^    $j = 0;$/;"	v
 j	src/empty_trash.php	/^$j = 0;$/;"	v
 j	src/move_messages.php	/^    $j = 0;$/;"	v
-j	src/move_messages_.php	/^    $j = 0;$/;"	v
 j	src/move_messages_backup.php	/^    $j = 0;$/;"	v
 j	src/view_header.php	/^        $j = $i + 1;$/;"	v
 japanese_charset_xtra	functions/i18n.php	/^function japanese_charset_xtra() {$/;"	f
@@ -3393,8 +3389,6 @@ last	plugins/mail_fetch/class.POP3.php	/^    function last ( $type = "count" ) {
 lastTargetMailbox	plugins/delete_move_next/setup.php	/^        $lastTargetMailbox = $targetMailbox;$/;"	v
 lastTargetMailbox	src/move_messages.php	/^    $lastTargetMailbox = $targetMailbox;$/;"	v
 lastTargetMailbox	src/move_messages.php	/^    $lastTargetMailbox = 'INBOX';$/;"	v
-lastTargetMailbox	src/move_messages_.php	/^    $lastTargetMailbox = $targetMailbox;$/;"	v
-lastTargetMailbox	src/move_messages_.php	/^    $lastTargetMailbox = 'INBOX';$/;"	v
 lastTargetMailbox	src/move_messages_backup.php	/^    $lastTargetMailbox = $targetMailbox;$/;"	v
 lastTargetMailbox	src/move_messages_backup.php	/^    $lastTargetMailbox = 'INBOX';$/;"	v
 last_element	src/search.php	/^    $last_element = $saved_count + 1;$/;"	v
@@ -3530,8 +3524,6 @@ localfilename	src/compose.php	/^        $localfilename = GenerateRandomString(32
 localfilename	src/compose.php	/^    $localfilename = GenerateRandomString(32, '', 7);$/;"	v
 localfilename	src/move_messages.php	/^                    $localfilename = GenerateRandomString(32, 'FILE', 7);$/;"	v
 localfilename	src/move_messages.php	/^                $localfilename = GenerateRandomString(32, 'FILE', 7);$/;"	v
-localfilename	src/move_messages_.php	/^                    $localfilename = GenerateRandomString(32, 'FILE', 7);$/;"	v
-localfilename	src/move_messages_.php	/^                $localfilename = GenerateRandomString(32, 'FILE', 7);$/;"	v
 localfilename	src/move_messages_backup.php	/^                    $localfilename = GenerateRandomString(32, 'FILE', 7);$/;"	v
 localfilename	src/move_messages_backup.php	/^                $localfilename = GenerateRandomString(32, 'FILE', 7);$/;"	v
 location	functions/mailbox_display.php	/^        $location = $php_self.'?mailbox=INBOX&amp;startMessage=1';$/;"	v
@@ -3558,21 +3550,6 @@ location	src/move_messages.php	/^$location = set_url_var($location,'composenew',
 location	src/move_messages.php	/^$location = set_url_var($location,'composesession',0,false);$/;"	v
 location	src/move_messages.php	/^$location = set_url_var($location,'session',0,false);$/;"	v
 location	src/move_messages.php	/^$location = set_url_var($location,'use_mailbox_cache',0,false);$/;"	v
-location	src/move_messages_.php	/^                        $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);$/;"	v
-location	src/move_messages_.php	/^                        $location = set_url_var($location,'startMessage',1, false);$/;"	v
-location	src/move_messages_.php	/^                    $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);$/;"	v
-location	src/move_messages_.php	/^                    $location = set_url_var($location,'startMessage',1, false);$/;"	v
-location	src/move_messages_.php	/^                $location = set_url_var($location, 'composenew', 1, false);$/;"	v
-location	src/move_messages_.php	/^                $location = str_replace('right_main.php','compose.php',$location);$/;"	v
-location	src/move_messages_.php	/^                $location = str_replace('search.php','compose.php',$location);$/;"	v
-location	src/move_messages_.php	/^            $location = set_url_var($location, 'forward_as_attachment_init', 1, false);$/;"	v
-location	src/move_messages_.php	/^            $location = set_url_var($location, 'session', $composesession, false);$/;"	v
-location	src/move_messages_.php	/^            $location = set_url_var($location,'startMessage',$startMessage-$show_num,false);$/;"	v
-location	src/move_messages_.php	/^            $location = set_url_var($location,'startMessage',1,false);$/;"	v
-location	src/move_messages_.php	/^$location = set_url_var($location,'composenew',0,false);$/;"	v
-location	src/move_messages_.php	/^$location = set_url_var($location,'composesession',0,false);$/;"	v
-location	src/move_messages_.php	/^$location = set_url_var($location,'session',0,false);$/;"	v
-location	src/move_messages_.php	/^$location = set_url_var($location,'use_mailbox_cache',0,false);$/;"	v
 location	src/move_messages_backup.php	/^                        $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);$/;"	v
 location	src/move_messages_backup.php	/^                        $location = set_url_var($location,'startMessage',1, false);$/;"	v
 location	src/move_messages_backup.php	/^                    $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);$/;"	v
@@ -3679,6 +3656,8 @@ mailbox	src/search.php	/^                $mailbox == $attributes['search_folder'
 mailbox	src/search.php	/^            $mailbox = $boxes[$x]['unformatted'];$/;"	v
 mailbox	src/search.php	/^    $mailbox = $boxes[0]['unformatted'];$/;"	v
 mailbox	src/search.php	/^    $mailbox == '';$/;"	v
+mailbox	src/sync.php	/^		$mailbox = $cur_instr->param_list[0];$/;"	v
+mailbox	src/sync.php	/^		$mailbox = $cur_instr->param_list[4];$/;"	v
 mailbox	src/view_header.php	/^  $mailbox = $temp;$/;"	v
 mailbox	src/view_text.php	/^  $mailbox = $temp;$/;"	v
 mailbox	src/webmail.php	/^    $mailbox = 'INBOX';$/;"	v
@@ -3686,6 +3665,8 @@ mailboxURL	plugins/newmail/setup.php	/^    $mailboxURL = urlencode($real_box);$/
 mailboxURL	src/left_main.php	/^    $mailboxURL = urlencode($real_box);$/;"	v
 mailbox_no_dm	src/folders_delete.php	/^    $mailbox_no_dm = $mailbox;$/;"	v
 mailbox_no_dm	src/folders_delete.php	/^    $mailbox_no_dm = substr($mailbox, 0, strlen($mailbox) - 1);$/;"	v
+mailbox_path	functions/imap_mailbox_off.php	/^	$mailbox_path = $path_off[$mailbox];$/;"	v
+mailbox_path	functions/imap_messages_off.php	/^	$mailbox_path = $path_off[$mailbox];$/;"	v
 mailbox_select_style	include/load_prefs.php	/^$mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', 1);$/;"	v
 mailbox_unformatted_disp	src/folders_delete.php	/^        $mailbox_unformatted_disp = $mailbox;$/;"	v
 mailbox_unformatted_disp	src/folders_delete.php	/^        $mailbox_unformatted_disp = substr($mailbox, strlen($folder_prefix));$/;"	v
@@ -3788,10 +3769,11 @@ mbx_response	functions/tree.php	/^            $mbx_response = sqimap_mailbox_sel
 mbx_response	functions/tree.php	/^        $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);$/;"	v
 mbx_response	src/download.php	/^$mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
 mbx_response	src/move_messages.php	/^$mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
-mbx_response	src/move_messages_.php	/^$mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
 mbx_response	src/move_messages_backup.php	/^$mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
 mbx_response	src/printer_friendly_bottom.php	/^$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
 mbx_response	src/read_body.php	/^$mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);$/;"	v
+mbx_response	src/sync.php	/^			$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
+mbx_response	src/sync.php	/^			$mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
 mbx_response	src/view_header.php	/^$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);$/;"	v
 mbx_response	src/view_text.php	/^$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
 mbxresponse	functions/mailbox_display.php	/^    $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);$/;"	v
@@ -3843,6 +3825,8 @@ message	functions/imap_general.php	/^            $message=$results[2];$/;"	v
 message	functions/imap_general.php	/^            $message='IMAP server does not appear to support the authentication method selected.';$/;"	v
 message	functions/imap_general.php	/^        $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";$/;"	v
 message	functions/imap_general.php	/^        $message='SquirrelMail does not support SASL PLAIN yet. Rerun conf.pl and use login instead.';$/;"	v
+message	functions/imap_mailbox_off.php	/^			$message = unserialize(fread($fp, 8192));$/;"	v
+message	functions/imap_messages_off.php	/^			$message = unserialize(fread($fp, 8192));$/;"	v
 message	include/options/personal.php	/^            $message = _("Error opening timezone config, contact administrator.");$/;"	v
 message	plugins/info/functions.php	/^    $message = '';$/;"	v
 message	plugins/mail_fetch/options.php	/^        $message = validate_mail_fetch_port_number($mf_port);$/;"	v
@@ -3858,7 +3842,6 @@ message	src/download.php	/^    $message = $messages[$mbx_response['UIDVALIDITY']
 message	src/download.php	/^    $message = sqimap_get_message($imapConnection,$passed_id, $mailbox);$/;"	v
 message	src/download.php	/^$message = '';$/;"	v
 message	src/move_messages.php	/^                $message = sqimap_get_message($imapConnection, $id, $mailbox);$/;"	v
-message	src/move_messages_.php	/^                $message = sqimap_get_message($imapConnection, $id, $mailbox);$/;"	v
 message	src/move_messages_backup.php	/^                $message = sqimap_get_message($imapConnection, $id, $mailbox);$/;"	v
 message	src/printer_friendly_bottom.php	/^    $message = $message->getEntity($passed_ent_id);$/;"	v
 message	src/printer_friendly_bottom.php	/^    $message = $messages[$mbx_response['UIDVALIDITY']][$passed_id];$/;"	v
@@ -4152,6 +4135,7 @@ newcolor	src/options_highlight.php	/^    else $newcolor = $color_type;$/;"	p
 newdata	plugins/mail_fetch/functions.php	/^    $newdata = '';$/;"	v
 newdata	src/addressbook.php	/^                    $newdata = $editaddr;$/;"	v
 newfh	functions/abook_local_file.php	/^        $newfh = @fopen($this->filename.'.tmp', 'w');$/;"	v
+newinstr	functions/imap_mailbox_off.php	/^    $newinstr = new Instr();$/;"	v
 newinstr	functions/imap_messages_off.php	/^    $newinstr = new Instr();$/;"	v
 newmail	src/compose.php	/^    $newmail = true;$/;"	v
 newmail_allbox	plugins/newmail/setup.php	/^    $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');$/;"	v
@@ -4365,6 +4349,8 @@ org_name	config/config_default.php	/^$org_name = "SquirrelMail";$/;"	v
 org_title	config/config.php	/^$org_title     = "SquirrelMail $version";$/;"	v
 org_title	config/config_default.php	/^$org_title = "SquirrelMail $version";$/;"	v
 org_title	functions/display_messages.php	/^        $org_title = "SquirrelMail";$/;"	v
+ori_str	src/sync.php	/^			$ori_str = $ori_str . fgets($fp);$/;"	v
+ori_str	src/sync.php	/^		$ori_str = '';$/;"	v
 orig	src/folders_rename_do.php	/^        $orig = $orig.$delimiter;$/;"	v
 orig	src/folders_rename_do.php	/^$orig = imap_utf7_encode_local($orig);$/;"	v
 orig_encoding	functions/strings.php	/^    $orig_encoding=mb_internal_encoding();$/;"	v
@@ -4518,6 +4504,7 @@ path	functions/strings.php	/^        $path = substr(php_self(), 0, strpos(php_se
 path	functions/strings.php	/^    $path = substr($path, 0, strrpos($path, '\/'));$/;"	v
 path	plugins/administrator/options.php	/^        $path = change_to_rel_path($v2);$/;"	v
 path	themes/random.php	/^    $path=preg_quote(SM_PATH,'\/');$/;"	v
+path_off	functions/more_constants_off.php	/^$path_off = array();$/;"	v
 perbox_count	src/search.php	/^$perbox_count = array ();$/;"	v
 personal	class/mime/AddressStructure.class.php	/^                        $personal = $personal_encoded;$/;"	v
 personal	class/mime/AddressStructure.class.php	/^                        $personal = '"'.$this->personal.'"';$/;"	v
@@ -4862,16 +4849,14 @@ read	functions/imap_messages.php	/^        $read = implode('',$r);$/;"	v
 read	functions/imap_messages.php	/^        $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \\"$trash_folder\\"", false, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^        $read = substr($read, $i+1);$/;"	v
 read	functions/imap_messages.php	/^        $read = substr($read,$i+1);$/;"	v
+read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imapConnection, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \\"$mailbox\\"", true, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imap_stream, "COPY $start:$end \\"$mailbox\\"", $handle_errors, $response, $message, $uid_support);$/;"	v
-read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\\\Deleted)", true, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\\\$flag)", $handle_errors, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\\\$flag)", $handle_errors, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command($imap_stream, "FETCH $id (FLAGS BODYSTRUCTURE)", true, $response, $message, $uid_support);$/;"	v
 read	functions/imap_messages.php	/^    $read = sqimap_run_command($imap_stream, "FETCH $id BODY[HEADER]", true, $response, $message, $uid_support);$/;"	v
-read	functions/imap_messages_off.php	/^        $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \\"$trash_folder\\"", false, $response, $message, $uid_support);$/;"	v
-read	functions/imap_messages_off.php	/^    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\\\Deleted)", true, $response, $message, $uid_support);$/;"	v
 read	functions/mime.php	/^    $read = trim(substr ($bodystructure, strpos(strtolower($bodystructure), 'bodystructure') + 13));$/;"	v
 read	functions/mime.php	/^    $read = trim(substr ($read, 0, -1));$/;"	v
 read	plugins/bug_report/bug_report.php	/^    $read = fgets($imap_stream, 1024);$/;"	v
@@ -5290,6 +5275,10 @@ ret	functions/imap_mailbox.php	/^        $ret = '';$/;"	v
 ret	functions/imap_mailbox.php	/^        $ret = boolean_hook_function('special_mailbox',$box,1);$/;"	v
 ret	functions/imap_mailbox.php	/^        $ret = join($needle, $parts);$/;"	v
 ret	functions/imap_mailbox.php	/^    $ret = ( ($subfolders_of_inbox_are_special && isInboxMailbox($box,$include_subs)) ||$/;"	v
+ret	functions/imap_mailbox_off.php	/^					$ret = false;$/;"	v
+ret	functions/imap_mailbox_off.php	/^	$ret = true;$/;"	v
+ret	functions/imap_messages_off.php	/^			$ret = false;$/;"	v
+ret	functions/imap_messages_off.php	/^	$ret = true;$/;"	v
 ret	functions/mime.php	/^                            $ret = '';$/;"	v
 ret	functions/mime.php	/^                        $ret = '';$/;"	v
 ret	functions/mime.php	/^                    $ret = '';$/;"	v
@@ -5324,6 +5313,7 @@ retVal	plugins/mail_fetch/class.POP3.php	/^                    $retVal = $this->
 retVal	plugins/mail_fetch/class.POP3.php	/^                $retVal = $this->login($login,$pass);$/;"	v
 retVal	plugins/mail_fetch/class.POP3.php	/^            $retVal = $this->login($login,$pass);$/;"	v
 ret_addr	src/view_header.php	/^    $ret_addr = SM_PATH . 'src\/read_body.php?'.$queryStr;$/;"	v
+ret_exit	src/sync.php	/^function ret_exit(){$/;"	f
 ret_match	functions/mime.php	/^    $ret_match = false;$/;"	v
 retarr	functions/mime.php	/^        $retarr = false;$/;"	v
 retarr	functions/mime.php	/^    $retarr = Array();$/;"	v
@@ -5352,7 +5342,6 @@ rfc822_header	plugins/spamcop/spamcop.php	/^          $rfc822_header = new Rfc82
 rfc822_header	src/compose.php	/^    $rfc822_header = $composeMessage->rfc822_header;$/;"	v
 rfc822_header	src/compose.php	/^    $rfc822_header = new Rfc822Header();$/;"	v
 rfc822_header	src/move_messages.php	/^    $rfc822_header = new Rfc822Header();$/;"	v
-rfc822_header	src/move_messages_.php	/^    $rfc822_header = new Rfc822Header();$/;"	v
 rfc822_header	src/move_messages_backup.php	/^    $rfc822_header = new Rfc822Header();$/;"	v
 rfc822_header	src/printer_friendly_bottom.php	/^            $rfc822_header = $att->rfc822_header;$/;"	v
 rfc822_header	src/printer_friendly_bottom.php	/^$rfc822_header = $message->rfc822_header; $/;"	v
@@ -5738,6 +5727,7 @@ session_expired_post	functions/auth.php	/^        $session_expired_post = $_POST
 session_id	functions/global.php	/^    $session_id = session_id();$/;"	v
 session_name	config/config.php	/^$session_name = 'SQMSESSID';$/;"	v
 session_name	config/config_default.php	/^$session_name = 'SQMSESSID';$/;"	v
+set	src/sync.php	/^		$set = $cur_instr->param_list[2];$/;"	v
 setBody	class/mime/Message.class.php	/^    function setBody($s) {$/;"	f
 setCaptionWrap	functions/options.php	/^    function setCaptionWrap($caption_wrap) {$/;"	f
 setComment	functions/options.php	/^    function setComment($comment) {$/;"	f
@@ -6012,6 +6002,7 @@ sqimap_mailbox_create	functions/imap_mailbox.php	/^function sqimap_mailbox_creat
 sqimap_mailbox_delete	functions/imap_mailbox.php	/^function sqimap_mailbox_delete ($imap_stream, $mailbox) {$/;"	f
 sqimap_mailbox_exists	functions/imap_mailbox.php	/^function sqimap_mailbox_exists ($imap_stream, $mailbox) {$/;"	f
 sqimap_mailbox_expunge	functions/imap_mailbox.php	/^function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, $id='') {$/;"	f
+sqimap_mailbox_expunge_off	functions/imap_mailbox_off.php	/^function sqimap_mailbox_expunge_off ($mailbox, $handle_errors = true, $id='') {$/;"	f
 sqimap_mailbox_is_subscribed	functions/imap_mailbox.php	/^function sqimap_mailbox_is_subscribed($imap_stream, $folder) {$/;"	f
 sqimap_mailbox_list	functions/imap_mailbox.php	/^function sqimap_mailbox_list($imap_stream, $force=false) {$/;"	f
 sqimap_mailbox_list_all	functions/imap_mailbox.php	/^function sqimap_mailbox_list_all($imap_stream) {$/;"	f
@@ -6041,7 +6032,7 @@ sqimap_session_id	functions/imap_general.php	/^function sqimap_session_id($uniqu
 sqimap_status_messages	functions/imap_general.php	/^function sqimap_status_messages ($imap_stream, $mailbox) {$/;"	f
 sqimap_subscribe	functions/imap_mailbox.php	/^function sqimap_subscribe ($imap_stream, $mailbox) {$/;"	f
 sqimap_toggle_flag	functions/imap_messages.php	/^function sqimap_toggle_flag($imapConnection, $id, $flag, $set, $handle_errors) {$/;"	f
-sqimap_toggle_flag_off	functions/imap_messages_off.php	/^function sqimap_toggle_flag_off($id, $flag, $set, $handle_errors\/*, $newinstr*\/) {$/;"	f
+sqimap_toggle_flag_off	functions/imap_messages_off.php	/^function sqimap_toggle_flag_off($id, $flag, $set, $handle_errors, $mailbox\/*, $newinstr*\/) {$/;"	f
 sqimap_unseen_messages	functions/imap_general.php	/^function sqimap_unseen_messages ($imap_stream, $mailbox) {$/;"	f
 sqimap_unsubscribe	functions/imap_mailbox.php	/^function sqimap_unsubscribe ($imap_stream, $mailbox) {$/;"	f
 sqm_baseuri	functions/strings.php	/^function sqm_baseuri(){$/;"	f
@@ -6099,6 +6090,8 @@ squirrelmail_plugin_init_test	plugins/test/setup.php	/^function squirrelmail_plu
 squirrelmail_plugin_init_translate	plugins/translate/setup.php	/^function squirrelmail_plugin_init_translate() {$/;"	f
 squirrelspell_optpage_register_block	plugins/squirrelspell/setup.php	/^function squirrelspell_optpage_register_block() {$/;"	f
 squirrelspell_setup	plugins/squirrelspell/setup.php	/^function squirrelspell_setup() {$/;"	f
+src_file_path	functions/imap_mailbox_off.php	/^		$src_file_path = $mailbox_path . $filename;$/;"	v
+src_file_path	functions/imap_messages_off.php	/^		$src_file_path = $mailbox_path . $cur_id;$/;"	v
 srch_addr	class/mime/Rfc822Header.class.php	/^            $srch_addr = $this->parseAddress($address);$/;"	v
 sret	functions/abook_ldap_server.php	/^        $sret = @ldap_search($this->linkid, $this->basedn, $expression,$/;"	v
 srt	functions/mailbox_display.php	/^    $srt = $sort;$/;"	v
@@ -6132,8 +6125,6 @@ startMessage	src/webmail.php	/^    $startMessage = (int) $startMessage;$/;"	v
 start_filters	plugins/filters/filters.php	/^function start_filters() {$/;"	f
 start_index	src/move_messages.php	/^       $start_index = ($startMessage-1) * $show_num;$/;"	v
 start_index	src/move_messages.php	/^       $start_index=0;$/;"	v
-start_index	src/move_messages_.php	/^       $start_index = ($startMessage-1) * $show_num;$/;"	v
-start_index	src/move_messages_.php	/^       $start_index=0;$/;"	v
 start_index	src/move_messages_backup.php	/^       $start_index = ($startMessage-1) * $show_num;$/;"	v
 start_index	src/move_messages_backup.php	/^       $start_index=0;$/;"	v
 start_msg	functions/mailbox_display.php	/^                                         $start_msg = 1) {$/;"	v
@@ -6295,10 +6286,6 @@ subject	src/move_messages.php	/^                    $subject = 'Fwd: ' . $subjec
 subject	src/move_messages.php	/^                $subject = $message->rfc822_header->subject;$/;"	v
 subject	src/move_messages.php	/^                $subject = decodeHeader($subject, false, false, true);$/;"	v
 subject	src/move_messages.php	/^                $subject = trim($subject);$/;"	v
-subject	src/move_messages_.php	/^                    $subject = 'Fwd: ' . $subject;$/;"	v
-subject	src/move_messages_.php	/^                $subject = $message->rfc822_header->subject;$/;"	v
-subject	src/move_messages_.php	/^                $subject = decodeHeader($subject, false, false, true);$/;"	v
-subject	src/move_messages_.php	/^                $subject = trim($subject);$/;"	v
 subject	src/move_messages_backup.php	/^                    $subject = 'Fwd: ' . $subject;$/;"	v
 subject	src/move_messages_backup.php	/^                $subject = $message->rfc822_header->subject;$/;"	v
 subject	src/move_messages_backup.php	/^                $subject = decodeHeader($subject, false, false, true);$/;"	v
@@ -6328,7 +6315,6 @@ submitted_token	src/folders_delete.php	/^    $submitted_token = '';$/;"	v
 submitted_token	src/folders_rename_do.php	/^    $submitted_token = '';$/;"	v
 submitted_token	src/folders_subscribe.php	/^    $submitted_token = '';$/;"	v
 submitted_token	src/move_messages.php	/^    $submitted_token = '';$/;"	v
-submitted_token	src/move_messages_.php	/^    $submitted_token = '';$/;"	v
 submitted_token	src/move_messages_backup.php	/^    $submitted_token = '';$/;"	v
 submitted_token	src/options.php	/^    $submitted_token = '';$/;"	v
 submitted_token	src/options_highlight.php	/^    $submitted_token = '';$/;"	v
@@ -6519,6 +6505,9 @@ tmp	src/configtest.php	/^        $tmp = fgets($stream, 1024);$/;"	v
 tmp	src/options_order.php	/^            $tmp = $index_order[$i];$/;"	v
 tmp	src/options_order.php	/^        $tmp = $index_order[$next];$/;"	v
 tmp	src/options_order.php	/^        $tmp = $index_order[$prev];$/;"	v
+tmpStr	src/sync.php	/^			$tmpStr = $tmpStr . $curLine; $/;"	v
+tmpStr	src/sync.php	/^		$tmpStr = '';$/;"	v
+tmpStr	src/sync.php	/^	$tmpStr = '';$/;"	v
 tmp_hold	functions/identity.php	/^                    $tmp_hold = $ident;$/;"	v
 tmp_hold	functions/identity.php	/^    $tmp_hold = array();$/;"	v
 tmp_status	src/left_main.php	/^            $tmp_status = create_unseen_string($real_box, $box_array, $imapConnection, $unseen_type );$/;"	v
@@ -6615,6 +6604,7 @@ trash_folder	include/load_prefs.php	/^    $trash_folder = $folder_prefix . $tras
 trash_folder	include/load_prefs.php	/^    $trash_folder = $load_trash_folder;$/;"	v
 trash_folder_values	include/options/folder.php	/^    $trash_folder_values = array(SMPREF_NONE => '[ '._("Do not use Trash").' ]',$/;"	v
 trash_on	include/options/folder.php	/^        $trash_on = ($option->new_value == SMPREF_NONE ? SMPREF_OFF : SMPREF_ON);$/;"	v
+trash_path	functions/imap_messages_off.php	/^	$trash_path = $path_off[$trash_folder];$/;"	v
 trim	config/conf.pl	/^sub trim {$/;"	s
 trim_at	functions/mailbox_display.php	/^    $trim_at = SUBJ_TRIM_AT;$/;"	v
 trim_val	functions/mailbox_display.php	/^            $trim_val = strpos($subject,';',$trim_val);$/;"	v
@@ -7041,6 +7031,7 @@ write	src/login.php	/^    $write   = $custom_session_handlers[3];$/;"	v
 writeBody	class/deliver/Deliver.class.php	/^    function writeBody($message, $stream, &$length_raw, $boundary='') {$/;"	f
 writeBodyPart	class/deliver/Deliver.class.php	/^    function writeBodyPart($message, $stream, &$length) {$/;"	f
 writeToStream	class/deliver/Deliver.class.php	/^    function writeToStream($stream, $data) {$/;"	f
+write_back	src/sync.php	/^function write_back($unexe_instrs, $idx){$/;"	f
 writeable	functions/abook_database.php	/^               $this->writeable = $param['writeable'];$/;"	v
 writeable	functions/abook_database.php	/^    var $writeable = true;$/;"	p
 writeable	functions/abook_database.php	/^    var $writeable = true;$/;"	v

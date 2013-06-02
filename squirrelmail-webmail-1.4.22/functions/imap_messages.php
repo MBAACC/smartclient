@@ -1174,7 +1174,7 @@ function sqimap_toggle_flag($imapConnection, $id, $flag, $set, $handle_errors) {
     global $uid_support;
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
-    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imapConnection, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);
 }
 
 
