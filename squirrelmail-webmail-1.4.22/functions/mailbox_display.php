@@ -73,6 +73,14 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         }
     }
     $msg = $msgs[$key];
+    // Test 130526
+    $file = fopen(SM_PATH. "local_data/test/msgs", "w+");
+    fwrite($file, var_export($msgs, true));
+    fclose($file);
+    $file = fopen(SM_PATH. "local_data/test/msg", "w+");
+    fwrite($file, var_export($msg, true));
+    fclose($file);
+    // Test
 
     if($mailbox == 'None') {
         $boxes   = sqimap_mailbox_list($imapConnection);
@@ -421,18 +429,24 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
         $msgs = array();
     }
 
-    //$start = microtime();
-    /* If autoexpunge is turned on, then do it now. */
-    $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
-    $srt = $sort;
-    /* If autoexpunge is turned on, then do it now. */
-    if ($auto_expunge == true) {
-        $exp_cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, false, '');
-        $mbxresponse['EXISTS'] = $mbxresponse['EXISTS'] - $exp_cnt;
-        $num_msgs = $mbxresponse['EXISTS'];
+    if ($mailbox == 'Offline Sent' || 'Offline Drafts') {
+        $mbxresponse = null;
+        $srt = $sort;
+    }
+    else {
+        //$start = microtime();
+        /* If autoexpunge is turned on, then do it now. */
+        $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
+        $srt = $sort;
+        /* If autoexpunge is turned on, then do it now. */
+        if ($auto_expunge == true) {
+            $exp_cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, false, '');
+            $mbxresponse['EXISTS'] = $mbxresponse['EXISTS'] - $exp_cnt;
+            $num_msgs = $mbxresponse['EXISTS'];
+        }
     }
 
-    if ($mbxresponse['EXISTS'] > 0) {
+    if ($mbxresponse['EXISTS'] > 0 || $mailbox == 'Offline Sent' || 'Offline Drafts') {
         /* if $start_msg is lower than $num_msgs, we probably deleted all messages
          * in the last page. We need to re-adjust the start_msg
          */
@@ -450,7 +464,14 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
          * SM internal sorting
          */
 
-        if ($thread_sort_messages == 1) {
+        // Nex 130527
+        if ($mailbox == 'Offline Sent') {
+            $mode = 'offlinesent';
+        } elseif ($mailbox == 'Offline Drafts') {
+            $mode = 'offlinedrafts';
+        }
+        // Nex
+        elseif ($thread_sort_messages == 1) {
             $mode = 'thread';
         } elseif ($allow_server_sort == 1) {
             $mode = 'serversort';
@@ -466,6 +487,22 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
             sqsession_unregister('msgs');
         }
         switch ($mode) {
+            // Nex 130527
+            case 'offlinesent':
+                $file = fopen(SM_PATH. 'local_data/offline_sent/msgs', "r");
+                if (flock($file, LOCK_SH)) {
+                    $string = fread($file, 8192);
+                    flock($file, LOCK_UN);
+                }
+                fclose($file);
+                eval('$msgs = '. $string. ';');
+                $sort = 6;
+                //$msort= $msgs;
+                $msort = calc_msort($msgs, $sort, $mailbox);
+                break;
+            case 'offlinedrafts':
+                break;
+            // Nex
             case 'thread':
                 $id   = get_thread_sort($imapConnection);
                 $msgs = getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);

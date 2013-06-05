@@ -1,0 +1,16 @@
+array (
+  'raw' => '* LIST (\\HasNoChildren) "/" "Offline Sent"
+',
+  'formatted' => 'Offline Sent',
+  'unformatted-dm' => 'Offline Sent',
+  'unformatted' => 'Offline Sent',
+  'unformatted-disp' => 'Offline Sent',
+  'id' => 97,
+  'flags' => 
+  array (
+    0 => 'hasnochildren',
+  ),
+  'visible' => true,
+  'parent' => false,
+  'collapse' => 0,
+)

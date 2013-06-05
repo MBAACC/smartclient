@@ -20,6 +20,7 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'class/Instr.class.php');
+require_once(SM_PATH . 'functions/fetch_all_message.php');
 
 global $compose_new_win;
 
@@ -126,8 +127,14 @@ $cnt = count($instrs);
 for($i=0; $i<$cnt; $i++){
 	$cur_instr = $instrs[$i];
 	$cur_instr_name = $cur_instr->instr_name;
+    // Nex 130601
+    // send
+    if ($cur_instr_name == 'syncDeliverMessage') {
+        syncDeliverMessage($cur_instr->param_list[0], $cur_instr->param_list[1], $cur_instr->param_list[2], $cur_instr->param_list[3], $cur_instr->param_list[4], $cur_instr->param_list[5], $cur_instr->param_list[6], $cur_instr->param_list[7]);
+    }
+    // Nex
 	// delete 
-	if($cur_instr_name == 'sqimap_msgs_list_delete'){
+	elseif($cur_instr_name == 'sqimap_msgs_list_delete'){
 		// params
 		$mailbox = $cur_instr->param_list[0];
 		$id = $cur_instr->param_list[1];
@@ -230,5 +237,128 @@ function ret_exit(){
 	die("done");
 }
 
+// Nex 130601
+function syncDeliverMessage(&$composeMessage, $draft, $action, $passed_id, $passed_ent_id, $useSendmail, $domain, $mailbox) {
+    global $username, $data_dir, $color, $default_move_to_sent, $move_to_sent;
+    global $imapServerAddress, $imapPort, $sent_folder, $key;
 
+    if ($action == 'reply' || $action == 'reply_all') {
+        $reply_id = $passed_id;
+        $reply_ent_id = $passed_ent_id;
+    } else {
+        $reply_id = '';
+        $reply_ent_id = '';
+    }
+
+    /* Here you can modify the message structure just before we hand
+       it over to deliver */
+    $hookReturn = do_hook('compose_send', $composeMessage);
+    /* Get any changes made by plugins to $composeMessage. */
+    if ( is_object($hookReturn[1]) ) {
+        $composeMessage = $hookReturn[1];
+    }
+
+    if (!$useSendmail && !$draft) {
+        require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
+        $deliver = new Deliver_SMTP();
+        global $smtpServerAddress, $smtpPort, $pop_before_smtp, $pop_before_smtp_host;
+
+        $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
+
+        $user = '';
+        $pass = '';
+        if (empty($pop_before_smtp_host))
+            $pop_before_smtp_host = $smtpServerAddress;
+
+        get_smtp_user($user, $pass);
+
+        $stream = $deliver->initStream($composeMessage,$domain,0,
+            $smtpServerAddress, $smtpPort, $user, $pass, $authPop, $pop_before_smtp_host);
+    } elseif (!$draft) {
+        require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
+        global $sendmail_path, $sendmail_args;
+        // Check for outdated configuration
+        if (!isset($sendmail_args)) {
+            if ($sendmail_path=='/var/qmail/bin/qmail-inject') {
+                $sendmail_args = '';
+            } else {
+                $sendmail_args = '-i -t';
+            }
+        }
+        $deliver = new Deliver_SendMail(array('sendmail_args'=>$sendmail_args));
+        $stream = $deliver->initStream($composeMessage,$sendmail_path);
+    } elseif ($draft) {
+        global $draft_folder;
+        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
+            $imapPort, 0);
+        if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
+            require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
+            $imap_deliver = new Deliver_IMAP();
+            $succes = $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $imap_stream, $draft_folder);
+            sqimap_logout($imap_stream);
+            unset ($imap_deliver);
+            $composeMessage->purgeAttachments();
+            return $succes;
+        } else {
+            $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."),
+                htmlspecialchars($draft_folder));
+            plain_error_message($msg, $color);
+            return false;
+        }
+    }
+    $succes = false;
+    if ($stream) {
+        $deliver->mail($composeMessage, $stream, $reply_id, $reply_ent_id);
+        $succes = $deliver->finalizeStream($stream);
+    }
+    if (!$succes) {
+        $msg  = _("Message not sent.") .' '.  _("Server replied:") .
+            "\n<blockquote>\n" . $deliver->dlv_msg . '<br />' .
+            $deliver->dlv_ret_nr . ' ' .
+            $deliver->dlv_server_msg . "</blockquote>\n\n";
+        plain_error_message($msg, $color);
+    } else {
+        unset ($deliver);
+        $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+
+
+        // mark original message as having been replied to if applicable
+        if ($action == 'reply' || $action == 'reply_all') {
+            sqimap_mailbox_select ($imap_stream, $mailbox);
+            sqimap_messages_flag ($imap_stream, $passed_id, $passed_id, 'Answered', false);
+        }
+
+
+        // copy message to sent folder
+        $move_to_sent = getPref($data_dir,$username,'move_to_sent');
+        if (isset($default_move_to_sent) && ($default_move_to_sent != 0)) {
+            $svr_allow_sent = true;
+        } else {
+            $svr_allow_sent = false;
+        }
+
+        if (isset($sent_folder) && (($sent_folder != '') || ($sent_folder != 'none'))
+            && sqimap_mailbox_exists( $imap_stream, $sent_folder)) {
+            $fld_sent = true;
+        } else {
+            $fld_sent = false;
+        }
+
+        if ((isset($move_to_sent) && ($move_to_sent != 0)) || (!isset($move_to_sent))) {
+            $lcl_allow_sent = true;
+        } else {
+            $lcl_allow_sent = false;
+        }
+
+        if (($fld_sent && $svr_allow_sent && !$lcl_allow_sent) || ($fld_sent && $lcl_allow_sent)) {
+            require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
+            $imap_deliver = new Deliver_IMAP();
+            $imap_deliver->mail($composeMessage, $imap_stream, $reply_id, $reply_ent_id, $imap_stream, $sent_folder);
+            unset ($imap_deliver);
+        }
+        $composeMessage->purgeAttachments();
+        sqimap_logout($imap_stream);
+    }
+    return $succes;
+}
 

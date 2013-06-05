@@ -61,8 +61,8 @@ $auto_create_special            = false;
 $delete_folder                  = true;
 $noselect_fix_enable            = false;
 
-$data_dir                 = '/var/www/squirrelmail/sm_data/';
-$attachment_dir           = '/var/www/squirrelmail/sm_attach/';
+$data_dir                 = '/var/www/squirrelmail_0605/sm_data/';
+$attachment_dir           = '/var/www/squirrelmail_0605/sm_attach/';
 $dir_hash_level           = 0;
 $default_left_size        = '150';
 $force_username_lowercase = false;

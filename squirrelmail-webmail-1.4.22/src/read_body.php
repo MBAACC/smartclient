@@ -20,6 +20,9 @@ define('PAGE_NAME', 'read_body');
  * @ignore
  */
 define('SM_PATH','../');
+// Nex 130528
+define('OFFLINE_SENT','local_data/offline_sent/');
+define('OFFLINE_DRAFT','local_data/offline_draft/');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
@@ -772,7 +775,13 @@ if ( sqgetGlobalVar('startMessage', $temp) ) {
 global $uid_support, $sqimap_capabilities;
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
+// Nex 130528
+if ($mailbox == 'Offline Sent' || $mailbox == 'Offline Drafts') {
+    $mbx_response = null;
+} else {
+// Nex
+    $mbx_response  = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
+}
 
 
 /**
@@ -780,34 +789,47 @@ $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false,
  * including header and body
  */
 
-$uidvalidity = $mbx_response['UIDVALIDITY'];
-
-if (!isset($messages[$uidvalidity])) {
-   $messages[$uidvalidity] = array();
-}
-if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
-   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-   $FirstTimeSee = !$message->is_seen;
-   $message->is_seen = true;
-   $messages[$uidvalidity][$passed_id] = $message;
-} else {
-//   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-   $message = $messages[$uidvalidity][$passed_id];
-   $FirstTimeSee = !$message->is_seen;
-}
-
-if (isset($passed_ent_id) && $passed_ent_id) {
-    $message = $message->getEntity($passed_ent_id);
-    if ($message->type0 != 'message'  && $message->type1 != 'rfc822') {
-        $message = $message->parent;
+// Nex 130528
+if ($mailbox == "Offline Sent") {
+    $file = fopen(SM_PATH. OFFLINE_SENT. $passed_id, "r");
+    if (flock($file, LOCK_SH)) {
+        $message = unserialize(fread($file, 8192));
+        flock($file, LOCK_UN);
     }
-    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, $uid_support);
-    $rfc822_header = new Rfc822Header();
-    $rfc822_header->parseHeader($read);
-    $message->rfc822_header = $rfc822_header;
+    fclose($file);
+    $message->header = new MessageHeader;
+    $FirstTimeSee = true;
+} elseif ($mailbox == 'Offline Drafts') {
+
 } else {
-    $passed_ent_id = 0;
-}
+	$uidvalidity = $mbx_response['UIDVALIDITY'];
+
+	if (!isset($messages[$uidvalidity])) {
+	   $messages[$uidvalidity] = array();
+	}
+	if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
+	   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+	   $FirstTimeSee = !$message->is_seen;
+	   $message->is_seen = true;
+	   $messages[$uidvalidity][$passed_id] = $message;
+	} else {
+	//   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+	   $message = $messages[$uidvalidity][$passed_id];
+	   $FirstTimeSee = !$message->is_seen;
+	}
+
+	if (isset($passed_ent_id) && $passed_ent_id) {
+	    $message = $message->getEntity($passed_ent_id);
+	    if ($message->type0 != 'message'  && $message->type1 != 'rfc822') {
+	        $message = $message->parent;
+	    }
+	    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, $uid_support);
+	    $rfc822_header = new Rfc822Header();
+	    $rfc822_header->parseHeader($read);
+	    $message->rfc822_header = $rfc822_header;
+	} else {
+	    $passed_ent_id = 0;
+	}
 $header = $message->header;
 
 // gmail does not mark messages as read when retrieving the message body
@@ -850,6 +872,12 @@ if (isset($sendreceipt)) {
 /***********************************************/
 
 $msgs[$passed_id]['FLAG_SEEN'] = true;
+}
+// Test 130528
+$file = fopen(SM_PATH. 'local_data/test/message', "w+");
+fwrite($file, var_export($message, true));
+fclose($file);
+// Test
 
 $messagebody = '';
 do_hook('read_body_top');

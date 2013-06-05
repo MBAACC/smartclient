@@ -1,0 +1,93 @@
+Message::__set_state(array(
+   'rfc822_header' => 
+  Rfc822Header::__set_state(array(
+     'date' => -1,
+     'date_unparsed' => '',
+     'subject' => 'n0',
+     'from' => 
+    array (
+      0 => 
+      AddressStructure::__set_state(array(
+         'personal' => '',
+         'adl' => '',
+         'mailbox' => 'nexice',
+         'host' => 'gmail.com',
+         'group' => '',
+      )),
+    ),
+     'sender' => '',
+     'reply_to' => 
+    array (
+    ),
+     'mail_followup_to' => 
+    array (
+    ),
+     'to' => 
+    array (
+      0 => 
+      AddressStructure::__set_state(array(
+         'personal' => '',
+         'adl' => '',
+         'mailbox' => 'nexice',
+         'host' => 'gmail.com',
+         'group' => '',
+      )),
+    ),
+     'cc' => 
+    array (
+    ),
+     'bcc' => 
+    array (
+    ),
+     'in_reply_to' => '',
+     'message_id' => '',
+     'references' => '',
+     'mime' => false,
+     'content_type' => 
+    ContentType::__set_state(array(
+       'type0' => 'text',
+       'type1' => 'plain',
+       'properties' => 
+      array (
+        'charset' => 'iso-8859-1',
+      ),
+    )),
+     'disposition' => '',
+     'xmailer' => '',
+     'priority' => '3',
+     'dnt' => '',
+     'encoding' => '8bit',
+     'mlist' => 
+    array (
+    ),
+     'x_spam_status' => 
+    array (
+    ),
+     'more_headers' => 
+    array (
+    ),
+  )),
+   'reply_rfc822_header' => '',
+   'mime_header' => '',
+   'flags' => '',
+   'type0' => '',
+   'type1' => '',
+   'entities' => 
+  array (
+  ),
+   'entity_id' => '',
+   'parent_ent' => NULL,
+   'entity' => NULL,
+   'parent' => '',
+   'decoded_body' => '',
+   'is_seen' => 0,
+   'is_answered' => 0,
+   'is_deleted' => 0,
+   'is_flagged' => 0,
+   'is_mdnsent' => 0,
+   'body_part' => 'n0test
+',
+   'offset' => 0,
+   'length' => 0,
+   'att_local_name' => '',
+))

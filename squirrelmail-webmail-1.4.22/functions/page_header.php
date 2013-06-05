@@ -305,8 +305,6 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ('src/help.php', _("Help"));
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ('src/sync.php', _("Sync"));
-    echo "&nbsp;&nbsp;\n";
 
     do_hook('menuline');
 

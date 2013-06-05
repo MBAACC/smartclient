@@ -1,0 +1,197 @@
+array (
+  0 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren) "/" "Offline Sent"
+',
+    'formatted' => 'Offline Sent',
+    'unformatted-dm' => 'Offline Sent',
+    'unformatted' => 'Offline Sent',
+    'unformatted-disp' => 'Offline Sent',
+    'id' => 97,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  1 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren) "/" "Offline Drafts"
+',
+    'formatted' => 'Offline Drafts',
+    'unformatted-dm' => 'Offline Drafts',
+    'unformatted' => 'Offline Drafts',
+    'unformatted-disp' => 'Offline Drafts',
+    'id' => 98,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  2 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren) "/" "INBOX"
+',
+    'formatted' => 'INBOX',
+    'unformatted-dm' => 'INBOX',
+    'unformatted' => 'INBOX',
+    'unformatted-disp' => 'INBOX',
+    'id' => 0,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  3 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\Drafts) "/" "[Gmail]/Drafts"
+',
+    'formatted' => '&nbsp;&nbsp;Drafts',
+    'unformatted-dm' => '[Gmail]/Drafts',
+    'unformatted' => '[Gmail]/Drafts',
+    'unformatted-disp' => '[Gmail]/Drafts',
+    'id' => 3,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'drafts',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  4 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\Sent) "/" "[Gmail]/Sent Mail"
+',
+    'formatted' => '&nbsp;&nbsp;Sent Mail',
+    'unformatted-dm' => '[Gmail]/Sent Mail',
+    'unformatted' => '[Gmail]/Sent Mail',
+    'unformatted-disp' => '[Gmail]/Sent Mail',
+    'id' => 5,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'sent',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  5 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\Trash) "/" "[Gmail]/Trash"
+',
+    'formatted' => '&nbsp;&nbsp;Trash',
+    'unformatted-dm' => '[Gmail]/Trash',
+    'unformatted' => '[Gmail]/Trash',
+    'unformatted-disp' => '[Gmail]/Trash',
+    'id' => 8,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'trash',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  6 => 
+  array (
+    'raw' => '* LIST (\\Noselect \\HasChildren) "/" "[Gmail]"
+',
+    'formatted' => '[Gmail]',
+    'unformatted-dm' => '[Gmail]',
+    'unformatted' => '[Gmail]',
+    'unformatted-disp' => '[Gmail]',
+    'id' => 1,
+    'flags' => 
+    array (
+      0 => 'noselect',
+      1 => 'haschildren',
+    ),
+    'visible' => true,
+    'parent' => true,
+    'collapse' => 0,
+  ),
+  7 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\All) "/" "[Gmail]/All Mail"
+',
+    'formatted' => '&nbsp;&nbsp;All Mail',
+    'unformatted-dm' => '[Gmail]/All Mail',
+    'unformatted' => '[Gmail]/All Mail',
+    'unformatted-disp' => '[Gmail]/All Mail',
+    'id' => 2,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'all',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  8 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\Important) "/" "[Gmail]/Important"
+',
+    'formatted' => '&nbsp;&nbsp;Important',
+    'unformatted-dm' => '[Gmail]/Important',
+    'unformatted' => '[Gmail]/Important',
+    'unformatted-disp' => '[Gmail]/Important',
+    'id' => 4,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'important',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  9 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\Junk) "/" "[Gmail]/Spam"
+',
+    'formatted' => '&nbsp;&nbsp;Spam',
+    'unformatted-dm' => '[Gmail]/Spam',
+    'unformatted' => '[Gmail]/Spam',
+    'unformatted-disp' => '[Gmail]/Spam',
+    'id' => 6,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'junk',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+  10 => 
+  array (
+    'raw' => '* LIST (\\HasNoChildren \\Flagged) "/" "[Gmail]/Starred"
+',
+    'formatted' => '&nbsp;&nbsp;Starred',
+    'unformatted-dm' => '[Gmail]/Starred',
+    'unformatted' => '[Gmail]/Starred',
+    'unformatted-disp' => '[Gmail]/Starred',
+    'id' => 7,
+    'flags' => 
+    array (
+      0 => 'hasnochildren',
+      1 => 'flagged',
+    ),
+    'visible' => true,
+    'parent' => false,
+    'collapse' => 0,
+  ),
+)
